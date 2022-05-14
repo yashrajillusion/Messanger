@@ -4,6 +4,7 @@ const ENDPOINT = "http://localhost:5001";
 var socket;
 export const SingleChat = () => {
   const [user, setUser] = useState({ room: "", username: "", message: "" });
+  const [message, setMessage] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
@@ -12,6 +13,7 @@ export const SingleChat = () => {
     socket.emit("join chat", user.room);
   };
   const sendMessage = () => {
+    setUser({ ...user, message: "" });
     socket.emit("new message", user);
   };
 
@@ -21,9 +23,10 @@ export const SingleChat = () => {
     socket.on("connected", (data) => {});
   }, []);
   useEffect(() => {
-    socket.on("message recieved", (data) => {
-      console.log(Date.now());
-      console.log(data);
+    socket.on("message recieved", ({ message }) => {
+      console.log(message);
+      // if (user.message === message) return;
+      // setMessage((prev) => [...prev, message]);
     });
   }, [socket]);
   return (
@@ -33,6 +36,9 @@ export const SingleChat = () => {
       <input name="message" onChange={handleChange} type="text" />
       <button onClick={fetchMessages}>Connected</button>
       <button onClick={sendMessage}>Message</button>
+      {message.map((chat, id) => (
+        <p key={id}>{chat}</p>
+      ))}
     </div>
   );
 };

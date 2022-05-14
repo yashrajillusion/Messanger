@@ -7,7 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const connect = require("./config/db");
-
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
 const PORT = process.env.PORT || 5001;
 let server = app.listen(PORT, async (req, res) => {
   try {
@@ -32,6 +34,10 @@ io.on("connection", (socket) => {
     socket.emit("connected");
   });
 
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
+
   socket.on("join chat", (room) => {
     socket.join(room);
     console.log("user joined Room: " + room);
@@ -39,7 +45,7 @@ io.on("connection", (socket) => {
 
   socket.on("new message", (newMessageRecieved) => {
     var chat = newMessageRecieved;
-    socket.in(chat.room).emit("message recieved", newMessageRecieved.message);
+    socket.in(chat.room).emit("message recieved", newMessageRecieved);
   });
   socket.off("setup", () => {
     console.log("user disconnected");
