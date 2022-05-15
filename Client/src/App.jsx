@@ -1,12 +1,17 @@
 import { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { AllRoutes } from "./Components/AllRoutes";
+import { RegisterComp } from "./Components/Auth/Registration";
 import { SingleChat } from "./Components/SingleChat";
 
 function App() {
   const [count, setCount] = useState(0);
 
-  return <SingleChat />;
+  return (
+    <>
+      <AllRoutes />
+    </>
+  );
 }
 
 export default App;

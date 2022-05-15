@@ -7,9 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const connect = require("./config/db");
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+
+const userController = require("./controller/user");
+const chatController = require("./controller/chats");
+const messageController = require("./controller/messages");
+app.use("/auth", userController);
+app.use("/chat", chatController);
+app.use("/message", messageController);
+
 const PORT = process.env.PORT || 5001;
 let server = app.listen(PORT, async (req, res) => {
   try {
@@ -26,29 +31,39 @@ const io = socket(server, {
     // credentials: true,
   },
 });
-
+let chat = [
+  "627e0bee996e152f3cac915a",
+  "627e1ab0a2aa650a0cea3a2c",
+  "627e1a80a2aa650a0cea3a2b",
+];
 io.on("connection", (socket) => {
-  console.log("connected to socket.io", socket.id);
-  socket.on("setup", (user) => {
-    socket.join(user);
+  console.log("Connected to socket.io ");
+  socket.on("setup", (userData) => {
+    console.log(userData._id);
+    socket.join(userData._id);
     socket.emit("connected");
-  });
-
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
   });
 
   socket.on("join chat", (room) => {
     socket.join(room);
-    console.log("user joined Room: " + room);
+    console.log("User Joined Room: " + room);
   });
 
   socket.on("new message", (newMessageRecieved) => {
-    var chat = newMessageRecieved;
-    socket.in(chat.room).emit("message recieved", newMessageRecieved);
+    chat.forEach((id) => {
+      if (id == newMessageRecieved.username._id) return;
+      socket.in(id).emit("message recieved", newMessageRecieved);
+    });
+    // var chat = newMessageRecieved.chat;
+    // if (!chat.users) return console.log("chat.users not defined");
+    // chat.users.forEach((user) => {
+    //   if (user._id == newMessageRecieved.sender._id) return;
+    // socket.in(user._id).emit("message recieved", newMessageRecieved);
+    // });
   });
+
   socket.off("setup", () => {
-    console.log("user disconnected");
-    socket.leave(user);
+    console.log("USER DISCONNECTED");
+    socket.leave(userData._id);
   });
 });
