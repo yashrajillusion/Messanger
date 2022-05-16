@@ -21,9 +21,7 @@ export const makeSearchApi = (search) => async (dispatch) => {
     let data = await res.json();
     dispatch(searchResult(data));
   } catch (err) {
-    searchError(true);
+    dispatch(searchError(true));
     console.log(err.message);
   }
-
-  console.log(search);
 };

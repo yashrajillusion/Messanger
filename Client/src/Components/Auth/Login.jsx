@@ -61,7 +61,7 @@ export const LoginComp = () => {
     </div>
   );
 };
-const ColorButton = styled(Button)(() => ({
+export const ColorButton = styled(Button)(() => ({
   color: "white",
   fontSize: "20px",
   textTransform: "none",

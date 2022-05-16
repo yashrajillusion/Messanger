@@ -18,11 +18,8 @@ router.get("/", authenticate, async (req, res) => {
         });
         res.status(200).send(results);
       });
-
-    return res.status(200).send(chat);
   } catch (error) {
-    res.status(400);
-    throw new Error(error.message);
+    return res.status(400).send(error.message);
   }
 });
 router.post("/", authenticate, async (req, res) => {
@@ -41,12 +38,12 @@ router.post("/", authenticate, async (req, res) => {
     })
       .populate("users", "-password")
       .populate("latestMessage");
-    chat = await user.populate(chat, {
+    chat = await user.populate(chat[0], {
       path: "latestMessage.sender",
       select: "name pic email",
     });
-    if (chat.length > 0) {
-      return res.status(200).send(chat[0]);
+    if (chat != undefined) {
+      return res.status(200).send(chat);
     } else {
       var chatData = {
         chatName: "sender",
@@ -70,9 +67,9 @@ router.post("/", authenticate, async (req, res) => {
   }
 });
 
-router.post("/group", async (req, res) => {
+router.post("/group", authenticate, async (req, res) => {
   try {
-    let users = JSON.parse(req.body.users);
+    let users = req.body.users;
     users.push(req.user);
     const groupChat = await Chat.create({
       chatName: req.body.name,

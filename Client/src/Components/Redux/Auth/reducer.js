@@ -14,11 +14,7 @@ const initState = {
   user: user.user,
   loading: false,
   error: false,
-};
-const logoutState = {
-  user: {},
-  loading: false,
-  error: false,
+  token: user.token,
 };
 
 export const authReducer = (store = initState, { type, payload }) => {
@@ -29,6 +25,7 @@ export const authReducer = (store = initState, { type, payload }) => {
         user: payload.user,
         loading: false,
         error: false,
+        token: payload.token,
       };
     case UPLOAD_PIC:
       return {

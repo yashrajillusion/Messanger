@@ -123,6 +123,10 @@ body {
   border-radius: 7px;
   background-color: #e6ebf5;
 }
+.selectUser {
+  border-radius: 7px;
+  background-color: #e6ebf5;
+}
 .history-cont {
   display: flex;
   align-items: center;
@@ -186,6 +190,7 @@ body {
   /* border: 2px solid red; */
   padding: 20px;
   max-height: 77%;
+  height: 77%;
   box-sizing: border-box;
   overflow-y: hidden;
   overflow: scroll;
@@ -278,4 +283,16 @@ body {
 .start-msg p {
   color: #7a7f9a;
   margin: 0px;
+}
+.group-people-cont {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.group-people {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+svg {
+  cursor: pointer;
 }

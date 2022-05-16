@@ -31,15 +31,8 @@ const io = socket(server, {
     // credentials: true,
   },
 });
-let chat = [
-  "627e0bee996e152f3cac915a",
-  "627e1ab0a2aa650a0cea3a2c",
-  "627e1a80a2aa650a0cea3a2b",
-];
 io.on("connection", (socket) => {
-  console.log("Connected to socket.io ");
   socket.on("setup", (userData) => {
-    console.log(userData._id);
     socket.join(userData._id);
     socket.emit("connected");
   });
@@ -49,17 +42,12 @@ io.on("connection", (socket) => {
     console.log("User Joined Room: " + room);
   });
 
-  socket.on("new message", (newMessageRecieved) => {
-    chat.forEach((id) => {
-      if (id == newMessageRecieved.username._id) return;
-      socket.in(id).emit("message recieved", newMessageRecieved);
+  socket.on("new message", (recievedMessage) => {
+    var chat = recievedMessage.chat;
+    chat.users.forEach((user) => {
+      if (user == recievedMessage.sender._id) return;
+      socket.in(user).emit("message recieved", recievedMessage);
     });
-    // var chat = newMessageRecieved.chat;
-    // if (!chat.users) return console.log("chat.users not defined");
-    // chat.users.forEach((user) => {
-    //   if (user._id == newMessageRecieved.sender._id) return;
-    // socket.in(user._id).emit("message recieved", newMessageRecieved);
-    // });
   });
 
   socket.off("setup", () => {

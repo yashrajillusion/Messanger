@@ -42,7 +42,7 @@ router.get("/:id", async (req, res) => {
     return res.status(500).send(err.message);
   }
 });
-router.delete("/", async (req, res) => {
+router.delete("/", authenticate, async (req, res) => {
   try {
     let user = await User.findByIdAndDelete(req.params.id).lean().exec();
     // let user = await User.deleteMany({}).lean().exec();
