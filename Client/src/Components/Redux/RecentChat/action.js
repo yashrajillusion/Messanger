@@ -16,7 +16,7 @@ export const newCreatedChat = (payload) => ({
 
 export const makeRecentChatApi = (token) => async (dispatch) => {
   recentLoding(true);
-  const url = `http://localhost:5001/chat`;
+  const url = `https://messenger-clo.herokuapp.com/chat`;
   try {
     let res = await fetch(url, {
       method: "get",
@@ -35,7 +35,7 @@ export const makeRecentChatApi = (token) => async (dispatch) => {
 
 export const makeNewGroup = (group_data, token) => async (dispatch) => {
   recentLoding(true);
-  const url = `http://localhost:5001/chat/group`;
+  const url = `https://messenger-clo.herokuapp.com/chat/group`;
   try {
     let res = await fetch(url, {
       method: "post",
@@ -55,7 +55,7 @@ export const makeNewGroup = (group_data, token) => async (dispatch) => {
 
 export const accessChat = (userId, token, recentchat) => async (dispatch) => {
   dispatch(recentLoding(true));
-  const url = `http://localhost:5001/chat`;
+  const url = `https://messenger-clo.herokuapp.com/chat`;
   try {
     let res = await fetch(url, {
       method: "post",

@@ -32,7 +32,7 @@ export const RegisterComp = () => {
     reader.readAsDataURL(file);
   };
   const handleSubmit = () => {
-    const url = "http://localhost:5001/auth";
+    const url = "https://messenger-clo.herokuapp.com/auth";
     if (user.pic) regData["pic"] = user.pic;
     dispatch(authRegister(url, regData));
   };

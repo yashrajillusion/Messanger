@@ -21,7 +21,7 @@ export const LoginComp = () => {
   };
 
   const handleSubmit = () => {
-    const url = "http://localhost:5001/auth/login";
+    const url = "https://messenger-clo.herokuapp.com/auth/login";
     dispatch(authRegister(url, regData));
   };
   if (user._id) {
