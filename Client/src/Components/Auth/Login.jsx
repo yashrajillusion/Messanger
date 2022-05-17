@@ -37,7 +37,12 @@ export const LoginComp = () => {
           <input name="email" onChange={handleChange} className="inputcom" />
 
           <p>Password</p>
-          <input name="password" onChange={handleChange} className="inputcom" />
+          <input
+            name="password"
+            type="password"
+            onChange={handleChange}
+            className="inputcom"
+          />
 
           {loading ? (
             <ColorButton disabled>
