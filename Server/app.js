@@ -27,6 +27,7 @@ let server = app.listen(PORT, async (req, res) => {
 const io = socket(server, {
   pingTimeout: 6000,
   cors: {
+    "Access-Control-Allow-Origin": "*",
     origin: "https://messanger-beryl.vercel.app",
     // credentials: true,
   },

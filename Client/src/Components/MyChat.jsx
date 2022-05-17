@@ -9,6 +9,7 @@ import { makeSearchApi } from "./Redux/Searching/action";
 import { useSelector } from "react-redux";
 import { accessChat, makeRecentChatApi } from "./Redux/RecentChat/action";
 import { selectChat } from "./Redux/Chatting/action";
+import { removeSeenMsg } from "./Redux/Notification/action";
 export const MyChat = () => {
   const [search, setSearch] = useState(false);
   const { search_result, loading, error } = useSelector(
@@ -94,13 +95,14 @@ export const MyChat = () => {
 export default function Notificationcomp() {
   const { unseenmsg } = useSelector((store) => store.notification);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    if (unseenmsg.length !== 0) dispatch(removeSeenMsg([]));
   };
 
   const open = Boolean(anchorEl);
@@ -122,8 +124,8 @@ export default function Notificationcomp() {
         {!unseenmsg.length ? (
           <Typography sx={{ p: 2, width: 170 }}>No new messages.</Typography>
         ) : (
-          unseenmsg.map((el) => (
-            <Typography sx={{ p: 2, width: 170 }}>
+          unseenmsg.map((el, index) => (
+            <Typography key={index} sx={{ p: 2, width: 170 }}>
               {el.sender.name + " " + el.content.substring(0, 15) + "..."}
             </Typography>
           ))
