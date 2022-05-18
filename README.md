@@ -1,5 +1,7 @@
 # Messanger
-An messaging app buil on React and Redux with socket.io for real time chatting as MERN project you can make a gruop chat as well Login and sigup authenicate with bcrypt and json web token and complete chat is saved on Mongodb
+An messaging app buil on React and Redux with socket.io for real time chatting as MERN project you can make a gruop chat as well Login and sigup authenicate with bcrypt and json web token live socket single chat group chat sending notification , profile upload and awesome UI/UX storing the chat on mongoDB complete schema using Mongoose
+
+And to make unidirectional i used Redux for making any api call and state management as well
 # Registration Page
 ## User can add their profile picture and all the state and fetching is handle by redux
 ![Screenshot (96)](https://user-images.githubusercontent.com/95868808/168769221-5c545432-0ceb-46fe-a8eb-aeee7e0f2a60.png)
