@@ -12,7 +12,7 @@ export const sendMessage = (payload) => ({ type: SEND_MESSAGE, payload });
 
 export const fetchCurrentMessages = (id, token, socket) => async (dispatch) => {
   dispatch(messageLoading(true));
-  const url = `https://messenger-clo.herokuapp.com/message/${id}`;
+  const url = `https://messanger-br6c.onrender.com/message/${id}`;
   try {
     let res = await fetch(url, {
       method: "GET",
@@ -31,7 +31,7 @@ export const fetchCurrentMessages = (id, token, socket) => async (dispatch) => {
 };
 
 export const sendMessageApi = (msg, token, socket) => async (dispatch) => {
-  const url = `https://messenger-clo.herokuapp.com/message/`;
+  const url = `https://messanger-br6c.onrender.com/message/`;
   try {
     let res = await fetch(url, {
       method: "POST",
