@@ -10,7 +10,7 @@ export const HomeComp = () => {
   const { chatting } = useSelector((store) => store.chatting);
 
   if (!user._id) {
-    return <Navigate to="/register" />;
+    return <Navigate to="/login" />;
   }
 
   return (

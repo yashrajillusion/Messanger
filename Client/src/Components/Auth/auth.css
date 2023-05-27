@@ -61,6 +61,7 @@
   color: #099bd6;
   margin-top: 5px;
   text-decoration: none;
+  cursor: pointer;
 }
 .contract {
   font-size: 0.8rem;

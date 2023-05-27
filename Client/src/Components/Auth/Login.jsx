@@ -11,8 +11,8 @@ import { authRegister } from "../Redux/Auth/action";
 export const LoginComp = () => {
   const { user, loading, error } = useSelector((store) => store.user);
   const [regData, setRegData] = useState({
-    email: "",
-    password: "",
+    email: "albert@gmail.com",
+    password: "albert",
   });
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -52,9 +52,9 @@ export const LoginComp = () => {
             <ColorButton onClick={handleSubmit}>Continue</ColorButton>
           )}
 
-          <Link className="auth-link" to={"/login"}>
-            Forgot your password?
-          </Link>
+          <p className="auth-link" onClick={handleSubmit}>
+            Don't have an account? Click continue to login as guest
+          </p>
           <p className="contract">
             Need an account ?
             <Link className="auth-link" to={"/register"}>
